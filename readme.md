@@ -15,6 +15,8 @@ Installers/
 ├─ CMake/
 │  ├─ cmake-3.18.2-Linux-x86_64.sh
 │  └─ install_cmake.sh
+├─ OpenCV/
+│  └─ opencv_build.sh
 ├─ nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb
 └─ readme.md
 ```
@@ -42,7 +44,10 @@ Then launch the docker image with
  - `-it` Enable interactive terminal
 
 ## TODO
- - [ ] Find a way to share compiled image
+ - [ ] Find a way to share compiled image (Docker HUB?)
  - [ ] Use `XAuth` alternative to `xhost`
- - [ ] Put OpenCV in
+ - [ ] Put OpenCV in (Test if opencv is installed properly)
+    - Clean up bandaids
+ - [ ] Split up `Installers` folder
+ - [ ] VSCode integration tutorial
  - [ ] Exposing Ports and forwarding ros packets to remote machines
