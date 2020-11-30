@@ -26,6 +26,7 @@ cmake -D BUILD_EXAMPLES=OFF \
         -D WITH_LIBV4L=ON \
         -D WITH_TBB=ON \
         -D WITH_OPENGL=ON \
+        -D CMAKE_LIBRARY_PATH=/usr/local/cuda/lib64/stubs \
 	..
 make -j$(nproc)
 make install
