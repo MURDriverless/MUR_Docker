@@ -69,5 +69,16 @@ RUN --mount=type=bind,source=Installers/OpenCV/,target=/usr/local/Installers/Ope
     sh ./opencv_build.sh
 WORKDIR /usr/local
 
+# Pylon
+RUN --mount=type=bind,source=Installers/Pylon/,target=/usr/local/Installers/Pylon/ \
+    apt-get install -y ./Installers/Pylon/pylon_6.1.1.19861-deb0_amd64.deb
+RUN echo "source /opt/pylon/bin/pylon-setup-env.sh /opt/pylon" >> ~/.bashrc
+
+# tkDNN
+RUN --mount=type=bind,source=Installers/tkDNN/,target=/usr/local/Installers/tkDNN/,rw \
+    cd /usr/local/Installers/tkDNN && \
+    sh ./install_tkDNN.sh
+
 # Cleanup
-RUN rm -r Installers
+RUN rm -r -f Installers && \
+    ldconfig
