@@ -69,5 +69,5 @@ RUN --mount=type=bind,source=Installers/OpenCV/,target=/usr/local/Installers/Ope
     sh ./opencv_build.sh
 WORKDIR /usr/local
 
-# # Cleanup
-# RUN rm -r Installers
+# Cleanup
+RUN rm -r Installers
