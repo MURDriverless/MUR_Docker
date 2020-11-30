@@ -21,7 +21,7 @@ Installers/
 └─ readme.md
 ```
 
-Run `docker build -t murdocker .`
+Run `docker build -t murauto/mur_dev_stack .`
 
 ## Usage
 As the docker image is based off of Nvidia's CUDA/cuDNN images, an Nvidia GPU is required as well as the latest GPU driver and the [Nvidia docker toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker).
@@ -34,7 +34,7 @@ First allow `X` clients from any hosts to connect with,
 
 Then launch the docker image with
 
-`docker run --gpus all -v /tmp/.X11-unix/:/tmp/.X11-unix/:ro -e DISPLAY=$(echo $DISPLAY) -it murdocker`
+`docker run --gpus all -v /tmp/.X11-unix/:/tmp/.X11-unix/:ro -e DISPLAY=$(echo $DISPLAY) -it murauto/mur_dev_stack`
 
 ### Meaning of the flags
 
@@ -44,10 +44,11 @@ Then launch the docker image with
  - `-it` Enable interactive terminal
 
 ## TODO
- - [ ] Find a way to share compiled image (Docker HUB?)
+ - [x] Find a way to share compiled image (Docker HUB?)
+    - Using Docker hub
  - [ ] Use `XAuth` alternative to `xhost`
- - [ ] Put OpenCV in (Test if opencv is installed properly)
+ - [x] Put OpenCV in (Test if opencv is installed properly)
     - Clean up bandaids
- - [ ] Split up `Installers` folder
+ - [x] Split up `Installers` folder
  - [ ] VSCode integration tutorial
  - [ ] Exposing Ports and forwarding ros packets to remote machines
