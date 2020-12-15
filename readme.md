@@ -72,3 +72,7 @@ docker run --gpus all \
  - [x] Split up `Installers` folder
  - [ ] VSCode integration tutorial
  - [ ] Exposing Ports and forwarding ros packets to remote machines
+ - [ ] Missing Utilities
+    - ifconfig
+    - ping
+    - vim
