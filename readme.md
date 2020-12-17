@@ -76,3 +76,4 @@ docker run --gpus all \
     - ifconfig
     - ping
     - vim
+ - [ ] Install gtk and gtk3 module for lidar_dev `sudo apt install libcanberra-gtk-module libcanberra-gtk3-module`
