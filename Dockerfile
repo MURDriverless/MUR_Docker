@@ -1,25 +1,48 @@
-# syntax=docker/dockerfile:experimental
+# syntax=docker/dockerfile:1.2
 FROM nvidia/cudagl:10.0-devel-ubuntu18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG UBUNTU_RELEASE=bionic
 
+ARG CUDA_VERSION=cuda10.0
+ARG CUDNN_VERSION=7.6.5.32
+ARG TENSORRT_VERSION=7.0.0
+
 WORKDIR /usr/local
 
+# Basic tools
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+  apt update && \
+  apt-get install -y \
+  net-tools \
+  iputils-ping \
+  vim \
+  wget \
+  libcanberra-gtk-module \
+  libcanberra-gtk3-module
+
 # cuDNN
-RUN --mount=type=bind,source=Installers/Nvidia/,target=/usr/local/Installers/Nvidia/ \
-    dpkg -i Installers/Nvidia/libcudnn7*
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+  apt update && \
+  apt-get install -y \
+  libcudnn7=${CUDNN_VERSION}-1+${CUDA_VERSION} \
+  libcudnn7-dev=${CUDNN_VERSION}-1+${CUDA_VERSION}
 
 # TensorRT
-RUN --mount=type=bind,source=Installers/Nvidia/,target=/usr/local/Installers/Nvidia/ \
-    dpkg -i Installers/Nvidia/nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb
-
-RUN apt-key add /var/nv-tensorrt-repo-cuda10.0-trt7.0.0.11-ga-20191216/7fa2af80.pub
-
-RUN rm /etc/apt/sources.list.d/nvidia-ml.list
-
-RUN apt-get update && \
-    apt-get install -y tensorrt
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+  apt update && \
+  apt-get install -y \
+  libnvinfer7=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  libnvonnxparsers7=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  libnvparsers7=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  libnvinfer-plugin7=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  libnvinfer-dev=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  libnvonnxparsers-dev=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  libnvparsers-dev=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  libnvinfer-plugin-dev=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  python-libnvinfer=${TENSORRT_VERSION}-1+${CUDA_VERSION} \
+  python3-libnvinfer=${TENSORRT_VERSION}-1+${CUDA_VERSION} && \
+  apt-mark hold libnvinfer7 libnvonnxparsers7 libnvparsers7 libnvinfer-plugin7 libnvinfer-dev libnvonnxparsers-dev libnvparsers-dev libnvinfer-plugin-dev python-libnvinfer python3-libnvinfer
 
 # ROS
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $UBUNTU_RELEASE main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -37,8 +60,9 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
     rosdep init && \
     rosdep update
 
-RUN apt-get install -y python-pip && \
-    pip install catkin_tools
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt\
+    apt-get update && apt-get install -y python3-pip && \
+    pip3 install catkin_tools
 
 # Gazebo Update
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable $UBUNTU_RELEASE main" > /etc/apt/sources.list.d/gazebo-stable.list'
