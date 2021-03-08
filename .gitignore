@@ -1,2 +1,2 @@
-Installers/*.deb
+Installers/**/*.deb
 Installers/CMake/cmake-*-Linux-x86_64.sh

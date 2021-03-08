@@ -2,4 +2,4 @@
 
 all: murdocker
 murdocker: Dockerfile
-	docker build -t murdocker .
+	DOCKER_BUILDKIT=1 docker build -t murauto/mur_dev_stack .
