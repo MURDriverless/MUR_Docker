@@ -12,7 +12,7 @@ Base image: `nvidia/cudagl:10.0-devel-ubuntu18.04`
  - OpenCV 4.1.1 (With CUDA/cuDNN)
     - Modify `Installers/CMake/opencv_build.sh` to change version/compile flags
  - Pylon 6.1.1
-    - Retrive `.deb` from https://www.baslerweb.com/en/sales-support/downloads/software-downloads/pylon-6-1-1-linux-x86-64-bit-debian/
+    - Coded as `wget` in `Dockerfile`.
  - tkDNN v0.5
 
 ## Build instructions
@@ -21,8 +21,6 @@ Retrive the missing binaries and place it in `Installers` as such,
 Installers/
 ├─ OpenCV/
 │  └─ opencv_build.sh
-├─ Pylon/
-│  └─ pylon_6.1.1.19861-deb0_amd64.deb
 ├─ tkDNN/
 │  └─ install_tkDNN.sh
 └─ readme.md

@@ -100,9 +100,13 @@ RUN --mount=type=bind,source=Installers/OpenCV/,target=/usr/local/Installers/Ope
 WORKDIR /usr/local
 
 # Pylon
-RUN --mount=type=bind,source=Installers/Pylon/,target=/usr/local/Installers/Pylon/ \
-    apt-get install -y ./Installers/Pylon/pylon_6.1.1.19861-deb0_amd64.deb
+RUN mkdir -p /usr/local/Installers/Pylon
+WORKDIR /usr/local/Installers/Pylon
+RUN wget https://www.baslerweb.com/fp-1589378344/media/downloads/software/pylon_software/pylon_6.1.1.19861-deb0_amd64.deb && \
+    apt-get install -y ./pylon_6.1.1.19861-deb0_amd64.deb && \
+    rm ./pylon*.deb
 RUN echo "source /opt/pylon/bin/pylon-setup-env.sh /opt/pylon" >> ~/.bashrc
+WORKDIR /usr/local
 
 # tkDNN
 RUN --mount=type=bind,source=Installers/tkDNN/,target=/usr/local/Installers/tkDNN/,rw \
