@@ -78,10 +78,16 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
     apt-get install -y ros-melodic-tf2-sensor-msgs libgoogle-glog-dev ros-melodic-effort-controllers ros-melodic-position-controllers
 
 # CMake
+ARG CMAKE_VERSION=3.18.2
+
 RUN mkdir -p /usr/local/Installers/CMake
 WORKDIR /usr/local/Installers/CMake
-RUN --mount=type=bind,source=Installers/CMake/,target=/usr/local/Installers/CMake/ \
-    sh ./install_cmake.sh
+RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-Linux-x86_64.sh && \
+    cp cmake-${CMAKE_VERSION}-Linux-x86_64.sh /opt/  && \
+    cd /opt  && \
+    sh ./cmake-${CMAKE_VERSION}-Linux-x86_64.sh --skip-license --include-subdir  && \
+    rm cmake-${CMAKE_VERSION}-Linux-x86_64.sh  && \
+    ln -s cmake-${CMAKE_VERSION}-Linux-x86_64 cmake
 WORKDIR /usr/local
 
 ENV PATH=/opt/cmake/bin${PATH:+:${PATH}}
