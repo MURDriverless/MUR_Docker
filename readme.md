@@ -66,7 +66,7 @@ docker run --gpus all \
 ```
 root@randomalphanum: /usr/local#
 ```
-8. Exit Docker for now with Ctrl+D or run “exit”
+8. Exit Docker for now with Ctrl+D or run `exit`
 
 ## 3) Easier way to run docker
 1. Clone https://github.com/MURDriverless/mur_docker_launcher to the Docker folder in 2)
@@ -92,8 +92,8 @@ root@randomalphanum: /usr/local#
 9. Please run “catkin build” ONLY when you no longer need access to the laptop and can keep it powered for half an hour or more. It may hang, just leave it and let it do its thing. It may fail, doesn’t matter, just run “catkin build” again until it succeeds.
 
 ## 5) Run MURsim Slow Lap
-1. Run “source devel/setup.bash” to source the setup file
-2. Run “roslaunch mursim_gazebo slow_lap.launch”
+1. Run `source devel/setup.bash` to source the setup file
+2. Run `roslaunch mursim_gazebo slow_lap.launch`
 3. Voila! 
 
 ### Meaning of the flags for 2.6)
