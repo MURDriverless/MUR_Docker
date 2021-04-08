@@ -17,6 +17,7 @@ Base image: `nvidia/cudagl:10.0-devel-ubuntu18.04`
 ## Instructions to get Docker and MURsim running
 # 0) Make sure you are running on an NVIDIA GPU and have enough space on Ubuntu (at least 85GB)
 If you don’t have enough space, please allocate/get more space.
+
 If you're using dual boot with Windows:
 1. Disk Management to shrink Windows Volume
    - If you’re facing issues while shrinking, https://www.winhelponline.com/blog/you-cannot-shrink-volume-beyond-point-disk-mgmt/?fbclid=IwAR2yXPd_RQhAVZplS2mzlSXEOtv-hrGCqICEZGgSrhtawZwSMEfaIvcGhUM
@@ -51,7 +52,8 @@ Installers/
 5. Allow X clients from any hosts to connect with, by running `xhost +`
 
 <sup>This allows **any** one to connect your host machine's X11 server, technically a security fault</sup>
-6. Launch the docker image with `sudo ./run.sh`, which runs the following
+
+6. Launch the docker image with `sudo ./run.sh`, which runs the following lines
 ```bash
 docker run --gpus all \
     -v /tmp/.X11-unix/:/tmp/.X11-unix/:ro \
@@ -60,7 +62,7 @@ docker run --gpus all \
     -it \
     murauto/mur_dev_stack
 ```
-7. You should now be in docker already, you’ll get something like
+7. You should now be in docker already and get something like
 ```
 root@randomalphanum: /usr/local#
 ```
@@ -68,7 +70,7 @@ root@randomalphanum: /usr/local#
 
 ## 3) Easier way to run docker
 1. Clone https://github.com/MURDriverless/mur_docker_launcher to the Docker folder in 2)
-2. Follow instructions under usage
+2. Follow instructions under Usage
 3. You should now be able to launch docker with `sudo mdock`
 
 ## 4) Getting MURsim on Docker
@@ -87,7 +89,7 @@ root@randomalphanum: /usr/local#
      - Follow this and do the next steps until you add the SSH key to your github account https://docs.github.com/en/github/authenticating-to-github/checking-for-existing-ssh-keys
      - Its probably good to not put a passphrase for now, you can always change it and add later https://docs.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases
 8. Once that is done, run “cd ../..” to get back to /MURworkspace/
-9. Pleases run “catkin build” when you no longer need access to the laptop and can keep it powered for half an hour or more, it may hang, just leave it and let it do its thing. It may fail, doesn’t matter, just run “catkin build” again until it succeeds.
+9. Please run “catkin build” ONLY when you no longer need access to the laptop and can keep it powered for half an hour or more. It may hang, just leave it and let it do its thing. It may fail, doesn’t matter, just run “catkin build” again until it succeeds.
 
 ## 5) Run MURsim Slow Lap
 Run “source devel/setup.bash” to source the setup file
