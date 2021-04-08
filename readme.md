@@ -85,11 +85,11 @@ root@randomalphanum: /usr/local#
 7. Run `sudo ./mur_init.sh`, you may run into two issues here
    - Command not found error
      - Run `chmod +x mur_init.sh` to give it executable permission
-   - Permission denied (publickey) error when its installing packages
+   - Permission denied (publickey) error when its cloning the required packages
      - Follow this and do the next steps until you add the SSH key to your github account https://docs.github.com/en/github/authenticating-to-github/checking-for-existing-ssh-keys
      - Its probably good to not put a passphrase for now, since it'll keep asking for your passphrase when you do the next step, you can always change it and add later https://docs.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases
 8. Once that is done, run “cd ../..” to get back to /MURworkspace/
-9. Please run “catkin build” ONLY when you no longer need access to the laptop and can keep it powered for half an hour or more. It may hang, just leave it and let it do its thing. It may fail, doesn’t matter, just run “catkin build” again until it succeeds.
+9. Please run `catkin build` ONLY when you no longer need access to the laptop and can keep it powered for half an hour or more. It may hang, just leave it and let it do its thing. It may fail, doesn’t matter, just run “catkin build” again until it succeeds.
 
 ## 5) Run MURsim Slow Lap
 1. Run `source devel/setup.bash` to source the setup file
