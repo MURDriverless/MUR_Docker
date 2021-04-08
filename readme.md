@@ -22,11 +22,11 @@ Disk Management to shrink Windows Volume
 Use trial Ubuntu from Ubuntu boot iso to repartition extra space into your existing Ubuntu with GParted
 If you’re facing issues while shrinking, https://www.winhelponline.com/blog/you-cannot-shrink-volume-beyond-point-disk-mgmt/?fbclid=IwAR2yXPd_RQhAVZplS2mzlSXEOtv-hrGCqICEZGgSrhtawZwSMEfaIvcGhUM
 
-# 1) Get Docker
+## 1) Get Docker
 1. Follow steps here: https://docs.docker.com/engine/install/ubuntu/
 2. Test if it works running `sudo docker run hello-world`
 
-# 2) Building MURauto Docker Image
+## 2) Building MURauto Docker Image
 1. Clone this folder to a folder for Docker https://github.com/MURDriverless/MUR_Docker
 2. Google and retrive the missing binaries and place it in `Installers` as such,
 ```
@@ -49,7 +49,8 @@ Installers/
 3. Run `sudo make` to build
 4. As the docker image is based off of Nvidia's CUDA/cuDNN images, an Nvidia GPU is required as well as the latest GPU driver and the [Nvidia docker toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker).
 5. Allow X clients from any hosts to connect with, by running `xhost +`
-<sup>This allows **any** one to connect your host machine's X11 server, technically a sercurity fault</sup>
+
+<sup>This allows **any** one to connect your host machine's X11 server, technically a security fault</sup>
 6. Launch the docker image with `sudo ./run.sh`, which runs the following
 ```bash
 docker run --gpus all \
@@ -65,12 +66,12 @@ root@randomalphanum: /usr/local#
 ```
 8. Exit Docker for now with Ctrl+D or run “exit”
 
-# 3) Easier way to run docker
+## 3) Easier way to run docker
 1. Clone https://github.com/MURDriverless/mur_docker_launcher to the Docker folder in 2)
 2. Follow instructions under usage
 3. You should now be able to launch docker with `sudo mdock`
 
-# 4) Getting MURsim on Docker
+## 4) Getting MURsim on Docker
 1. Make a folder that’s designated as the MUR workspace folder, it’ll be called MURworkspace
 2. Make a src folder (/MURworkspace/src/), and then make a simulation folder in src (/MURworkspace/src/simulation)
    - src is the source folder, you’ll be putting packages you want to build there
@@ -88,7 +89,7 @@ root@randomalphanum: /usr/local#
 8. Once that is done, run “cd ../..” to get back to /MURworkspace/
 9. Pleases run “catkin build” when you no longer need access to the laptop and can keep it powered for half an hour or more, it may hang, just leave it and let it do its thing. It may fail, doesn’t matter, just run “catkin build” again until it succeeds.
 
-# 5) Run MURsim Slow Lap
+## 5) Run MURsim Slow Lap
 Run “source devel/setup.bash” to source the setup file
 Run “roslaunch mursim_gazebo slow_lap.launch”
 
