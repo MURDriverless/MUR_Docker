@@ -17,10 +17,10 @@ Base image: `nvidia/cudagl:10.0-devel-ubuntu18.04`
 ## Instructions to get Docker and MURsim running
 # 0) Make sure you are running on an NVIDIA GPU and have enough space on Ubuntu (at least 85GB)
 If you don’t have enough space, please allocate/get more space.
-Using dual boot with Windows:
-Disk Management to shrink Windows Volume
-Use trial Ubuntu from Ubuntu boot iso to repartition extra space into your existing Ubuntu with GParted
-If you’re facing issues while shrinking, https://www.winhelponline.com/blog/you-cannot-shrink-volume-beyond-point-disk-mgmt/?fbclid=IwAR2yXPd_RQhAVZplS2mzlSXEOtv-hrGCqICEZGgSrhtawZwSMEfaIvcGhUM
+- Using dual boot with Windows:
+    1. Disk Management to shrink Windows Volume
+    1.1 If you’re facing issues while shrinking, https://www.winhelponline.com/blog/you-cannot-shrink-volume-beyond-point-disk-mgmt/?fbclid=IwAR2yXPd_RQhAVZplS2mzlSXEOtv-hrGCqICEZGgSrhtawZwSMEfaIvcGhUM
+    2. Use trial Ubuntu from Ubuntu boot iso to repartition extra space into your existing Ubuntu with GParted
 
 ## 1) Get Docker
 1. Follow steps here: https://docs.docker.com/engine/install/ubuntu/
