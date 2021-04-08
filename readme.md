@@ -14,8 +14,21 @@ Base image: `nvidia/cudagl:10.0-devel-ubuntu18.04`
  - Pylon 6.1.1
  - tkDNN v0.5
 
-## Build instructions
-Retrive the missing binaries and place it in `Installers` as such,
+## Instructions to get Docker and MURsim running
+# 0) Make sure you are running on an NVIDIA GPU and have enough space on Ubuntu (at least 85GB)
+If you don’t have enough space, please allocate/get more space.
+Using dual boot with Windows:
+Disk Management to shrink Windows Volume
+Use trial Ubuntu from Ubuntu boot iso to repartition extra space into your existing Ubuntu with GParted
+If you’re facing issues while shrinking, https://www.winhelponline.com/blog/you-cannot-shrink-volume-beyond-point-disk-mgmt/?fbclid=IwAR2yXPd_RQhAVZplS2mzlSXEOtv-hrGCqICEZGgSrhtawZwSMEfaIvcGhUM
+
+# 1) Get Docker
+1. Follow steps here: https://docs.docker.com/engine/install/ubuntu/
+2. Test if it works running `sudo docker run hello-world`
+
+# 2) Building MURauto Docker Image
+1. Clone this folder to a folder for Docker https://github.com/MURDriverless/MUR_Docker
+2. Google and retrive the missing binaries and place it in `Installers` as such,
 ```
 Installers/
 ├─ CMake/
@@ -33,20 +46,11 @@ Installers/
 │  └─ install_tkDNN.sh
 └─ readme.md
 ```
-
-Run `sudo make` to build
-
-## Usage
-As the docker image is based off of Nvidia's CUDA/cuDNN images, an Nvidia GPU is required as well as the latest GPU driver and the [Nvidia docker toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker).
-
-First allow X clients from any hosts to connect with,
-
-`xhost +`
-
+3. Run `sudo make` to build
+4. As the docker image is based off of Nvidia's CUDA/cuDNN images, an Nvidia GPU is required as well as the latest GPU driver and the [Nvidia docker toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker).
+5. Allow X clients from any hosts to connect with, by running `xhost +`
 <sup>This allows **any** one to connect your host machine's X11 server, technically a sercurity fault</sup>
-
-Then launch the docker image with `sudo ./run.sh`
-
+6. Launch the docker image with `sudo ./run.sh`, which runs the following
 ```bash
 docker run --gpus all \
     -v /tmp/.X11-unix/:/tmp/.X11-unix/:ro \
@@ -55,8 +59,40 @@ docker run --gpus all \
     -it \
     murauto/mur_dev_stack
 ```
+7. You should now be in docker already, you’ll get something like
+```
+root@randomalphanum: /usr/local#
+```
+8. Exit Docker for now with Ctrl+D or run “exit”
 
-### Meaning of the flags
+# 3) Easier way to run docker
+1. Clone https://github.com/MURDriverless/mur_docker_launcher to the Docker folder in 2)
+2. Follow instructions under usage
+3. You should now be able to launch docker with `sudo mdock`
+
+# 4) Getting MURsim on Docker
+1. Make a folder that’s designated as the MUR workspace folder, it’ll be called MURworkspace
+2. Make a src folder (/MURworkspace/src/), and then make a simulation folder in src (/MURworkspace/src/simulation)
+   - src is the source folder, you’ll be putting packages you want to build there
+   - simulation folder will hold all the mursim stuff
+3. Get mur_init.sh from https://github.com/MURDriverless/mursim_init, put it in the simulation folder (/MURworkspace/src/simulation)
+4. Run `sudo mdock` on the workspace folder you designated for MUR workspace (/MURworkspace/)
+5. Run `cd /workspace` to get into the workspace folder on docker, it should show the path to /MURworkspace/
+6. Run `cd src/simulation/` to get into the simulation folder
+7. Run `sudo ./mur_init.sh`, you may run into two issues here
+7.1. Command not found error
+   - Run `chmod +x mur_init.sh` to put executable permission
+7.2. Permission denied (publickey) error when its installing packages
+   - Follow this and do the next steps until you add the SSH key to your github account https://docs.github.com/en/github/authenticating-to-github/checking-for-existing-ssh-keys
+   - Its probably good to not put a passphrase for now, you can always change it and add later https://docs.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases
+8. Once that is done, run “cd ../..” to get back to /MURworkspace/
+9. Pleases run “catkin build” when you no longer need access to the laptop and can keep it powered for half an hour or more, it may hang, just leave it and let it do its thing. It may fail, doesn’t matter, just run “catkin build” again until it succeeds.
+
+# 5) Run MURsim Slow Lap
+Run “source devel/setup.bash” to source the setup file
+Run “roslaunch mursim_gazebo slow_lap.launch”
+
+### Meaning of the flags for 2.6)
  - `--gpus all` enable pass through of all physical gpus
  - `-v /tmp/.X11-unix/:/tmp/.X11-unix/:ro` mount host's `/tmp/.X11-unix/` to the image's `/tmp/.X11-unix/` with read-only (`:ro`)
  - `-e DISPLAY=$(echo $DISPLAY)` export the `DISPLAY` env variable in the image to point to the host's display
