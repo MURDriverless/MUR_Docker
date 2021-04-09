@@ -71,7 +71,7 @@ root@randomalphanum: /usr/local#
 
 The randomalphanum at the top is the long UUID identifier for the docker container, while the short version is the one beside `root@`. You'll need the identifier if you would like to run multiple instance of docker, by running the following 
 ```
-docker exec -it container_UUID bash
+sudo docker exec -it container_UUID bash
 ```
 8. Exit Docker for now with Ctrl+D or run `exit`
 
